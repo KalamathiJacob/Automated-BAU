@@ -1,0 +1,26 @@
+---
+- name:
+  hosts: muleservers
+  become: true
+  tasks:
+  - name: get status
+    shell: sh /home/mule_user/mule/services/mulectl_all_status
+    register: ms1
+  - debug:
+      var: ms1.stdout_lines
+    tags:
+    - status
+  - name: start mule
+    shell: sh /home/mule_user/mule/services/mulectl_all_start
+    register: ms2
+  - debug: 
+      var: ms2.stdout_lines
+    tags:
+    - start
+  - name: start mule
+    shell: sh /home/mule_user/mule/services/mulectl_all_start
+    register: ms2
+  - debug: 
+      var: ms2.stdout_lines
+    tags:
+    - stop
