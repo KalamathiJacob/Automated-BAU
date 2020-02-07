@@ -1,0 +1,26 @@
+pipeline {
+             parameters {
+        string(defaultValue: '', description: 'Enter list of mule servers one by one', name: 'SERVER_LIST', trim: f
+alse);
+        choice(choices: ['status', 'stop', 'start', 'recycle'], description: 'Action to perform', name: 'Action')
+    }
+    agent any
+     stages {
+        stage('Write to file'){
+            steps{
+                        script{
+                                //properties([parameters([string(defaultValue: '', description: 'Enter list of mule
+ servers one by one', name: 'SERVER_LIST', trim: false)])])
+                //properties([parameters([choice(choices: ['status', 'stop', 'start', 'recycle'], description: 'Act
+ion to perform', name: 'Action')])])
+                //properties([parameters([string(defaultValue: 'status', description: 'start / stop / recycle / sta
+tus', name: 'Action', trim: false)])])
+                                sh 'echo -e "[all:vars]\nansible_user = mule_user\n[muleservers]" > /etc/ansible/ho
+sts'
+                                sh 'echo "${SERVER_LIST}" >> /etc/ansible/hosts'
+                sh 'ansible-playbook /var/lib/jenkins/ansible/mulemaster.yml'
+                                }
+            }
+        }
+    }
+}
