@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+     stages {
+        stage('Write to file'){
+            steps{
+			script{
+				sh 'sh /var/lib/jenkins/ansible/ext_execute.sh'
+				}
+            }
+        }
+    }
+}
+
+
+
+
+	/*pipeline {
+	     parameters {
+        text(name: 'SERVER_LIST', defaultValue: '', description: 'Enter list of mule servers one by one'); 
+        choice(choices: ['status', 'stop', 'start', 'recycle'], description: 'Action to perform', name: 'Action')
+    }
+    agent any
+     stages {
+        stage('Write to file'){
+            steps{
+			script{
+				sh 'echo -e "[all:vars]\nansible_user = mule_user\n[muleservers]" > /etc/ansible/hosts'
+				sh 'echo "${SERVER_LIST}" >> /etc/ansible/hosts'
+                sh 'ansible-playbook /var/lib/jenkins/ansible/mulemaster.yml'
+				}
+            }
+        }
+    }
+}*/
