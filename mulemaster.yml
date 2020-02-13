@@ -1,0 +1,36 @@
+---
+- name:
+  hosts: muleservers
+  become: true
+  vars:
+    vtodo: "{{ todo }}"
+  tasks:
+  - name: get status
+    command: sh /home/mule_user/mule/services/statusmule
+    when: vtodo == "status"
+    register: varstatus    
+  - debug: 
+      msg: "{{ varstatus.stdout }}"
+    when: vtodo == "status"
+  - name: start mule
+    command: sh /home/mule_user/mule/services/startmule
+    when: vtodo == "start" 
+    register: varstart
+  - debug: 
+      msg: "{{ varstart.stdout }}"
+    when: vtodo == "start" 
+        
+  - name: stop mule
+    command: sh /home/mule_user/mule/services/stopmule
+    when: vtodo == "stop"
+    register: varstop    
+  - debug: 
+      msg: "{{ varstop.stdout }}"
+    when: vtodo == "stop"
+  - name: recycle mule
+    command: sh /home/mule_user/mule/services/recyclemule
+    when: vtodo == "recycle"  
+    register: varrecycle
+  - debug: 
+      msg: "{{ varrecycle.stdout }}"
+    when: vtodo == "recycle" 
