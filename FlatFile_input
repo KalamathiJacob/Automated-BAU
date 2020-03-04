@@ -1,4 +1,4 @@
 #list of servers separated by commas
-server_list:mule-server1,mule-server2,test-server
+server_list:mule-server1
 #actions: start/stop/recycle/status
 action_to_perform:stop
